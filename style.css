@@ -1,0 +1,11 @@
+.btn.btn-info:active, .btn.btn-info:focus {
+  outline: 0px;
+}
+
+table {
+  margin-top: 24px;
+}
+
+form * {
+  margin-top: 12px;
+}

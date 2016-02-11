@@ -1,0 +1,27 @@
+<form>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Enter Stock Symbol..." ng-model="symbol">
+    <button class="btn btn-success" ng-click="add()">Track Stock</button>
+  </div>
+</form>
+
+<!-- form>.form-group>label{Search}+input.form-control[type="text" placeholder="Enter Search Term..." ng-model="searchText"]+button.btn.btn-success[ng-click="search()"]{Search Stocks} -->
+
+
+<form>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Enter Search Term..." ng-model="searchText">
+    <button class="btn btn-success" ng-click="search()">Search Stocks</button>
+  </div>
+</form>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th ng-repeat="(key, value) in searchResults[0]">{{key}}</th>
+    </tr>
+    <tr ng-repeat="stock in searchResults">
+      <td ng-repeat="(key, value) in stock">{{value}}</td>
+    </tr>
+  </tbody>
+</table>

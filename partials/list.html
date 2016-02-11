@@ -1,0 +1,20 @@
+<div ng-switch on="list.length">
+
+
+  <div ng-switch-when="0">
+    <h2>You are not currently tracking any stocks.</h2>
+    <a ui-sref="add">Click here to start tracking stocks.</a>
+  </div>
+
+  <table class="table" ng-switch-default>
+    <tbody>
+      <tr>
+        <th ng-repeat="(key, value) in list[0]">{{key}}</th>
+      </tr>
+      <tr ng-repeat="stock in list">
+        <td ng-repeat="data in stock">{{data}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
