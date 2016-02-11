@@ -12,7 +12,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 app.controller("listCtrl", function($scope, Stocks) {
+  // $scope.$watch("list")
   $scope.list = Stocks.list;
+
+  $scope.deleteStock = function() {
+    Stocks.remove(this.stock);
+  };
+
 });
 
 app.controller("addCtrl", function($scope, $state, Stocks) {
@@ -37,8 +43,8 @@ app.service("Stocks", function($http, $state) {
   var thisService = this;
 
   this.addBySymbol = function(symbol) {
-    if(thisService.symbols.includes(symbol)){
-      swal("Symbol already being tracked", "", "Error");
+    if(thisService.symbols.includes(symbol.toUpperCase())){
+      swal("Symbol already being tracked", "", "error");
     }
     else {
       $http.jsonp(`http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp?symbol=${symbol}&jsoncallback=JSON_CALLBACK`)
@@ -48,7 +54,7 @@ app.service("Stocks", function($http, $state) {
         }
         else{
           thisService.list.push(res.data);
-          thisService.symbols.push(symbol);
+          thisService.symbols.push(symbol.toUpperCase());
           $state.go("list");
         }
       }, function(err) {
@@ -67,6 +73,20 @@ app.service("Stocks", function($http, $state) {
     },function(err){
       return console.error(err);
     })
+
+  }
+
+  this.remove = function(stock) {
+    // swal({ angular data binding was breaking when changing data from inside of swal callback
+    //   title: "Are you sure you would like to stop tracking this stock?",
+    //   showCancelButton: true
+    // }, function() {
+    // console.log(stock);
+      var stockIndex = this.list.indexOf(stock);
+      this.list.splice(stockIndex, 1);
+      var symbolIndex = this.symbols.indexOf(stock.Symbol.toUpperCase());
+      this.symbols.splice(symbolIndex, 1);
+    // });
   }
 
 });

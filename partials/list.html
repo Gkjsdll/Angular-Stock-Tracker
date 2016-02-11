@@ -6,15 +6,24 @@
     <a ui-sref="add">Click here to start tracking stocks.</a>
   </div>
 
-  <table class="table" ng-switch-default>
-    <tbody>
-      <tr>
-        <th ng-repeat="(key, value) in list[0]">{{key}}</th>
-      </tr>
-      <tr ng-repeat="stock in list">
-        <td ng-repeat="data in stock">{{data}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div ng-switch-default>
+    <p>Double click on a stock to delete it.</p>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>Remove</th>
+          <th ng-repeat="(key, value) in list[0]">{{key}}</th>
+        </tr>
+        <tr ng-repeat="stock in list" ng-dblclick="deleteStock()">
+          <td>
+            <button class="btn btn-danger btn-sm" ng-click="deleteStock()">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </td>
+          <td ng-repeat="data in stock">{{data}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>
